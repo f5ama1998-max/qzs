@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1961 - رحم الله أبي</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 20px 12px 40px;
+  font-family: Arial, sans-serif;
+  background: #101820;
+  color: white;
+  text-align: center;
+}
+
+header, .card, .dua-card {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 22px;
+  background: #1b2835;
+  border: 1px solid #c9a646;
+  border-radius: 18px;
+}
+
+h1 {
+  color: #e4c66b;
+  font-size: 48px;
+  margin-bottom: 5px;
+}
+
+h2, h3 { color: #e4c66b; }
+
+p {
+  font-size: 18px;
+  line-height: 2;
+}
+
+nav {
+  max-width: 700px;
+  margin: 20px auto;
+  display: grid;
+  gap: 12px;
+}
+
+nav a {
+  display: block;
+  padding: 16px;
+  background: #1b2835;
+  border: 1px solid #c9a646;
+  border-radius: 12px;
+  color: #e4c66b;
+  text-decoration: none;
+  font-size: 19px;
+}
+
+.dua-card {
+  text-align: right;
+  scroll-margin-top: 15px;
+}
+
+.dua-text {
+  font-size: 19px;
+  line-height: 2.1;
+}
+
+button {
+  padding: 11px 16px;
+  margin: 5px;
+  border: 0;
+  border-radius: 10px;
+  background: #e4c66b;
+  color: #101820;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#message {
+  color: #e4c66b;
+  text-align: center;
+}
+
+footer {
+  color: #d8c990;
+  margin-top: 35px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>1961</h1>
+  <h2>رحم الله أبي</h2>
+  <p>اللهم اغفر له وارحمه، وعافه واعفُ عنه، وأسكنه فسيح جناتك.</p>
+  <p>اللهم اجعل هذا العمل صدقة جارية عنه.</p>
+</header>
+
+<nav>
+  <a href="quran.html">📖 القرآن الكريم</a>
+  <a href="tasbeeh.html">📿 المسبحة الإلكترونية</a>
+  <a href="#friday-duas">🤲 أدعية يوم الجمعة</a>
+</nav>
+
+<section class="card" id="friday-duas">
+  <h2>🤲 أدعية يوم الجمعة لأبي</h2>
+  <p>اختر الدعاء الذي تحب قراءته، أو انسخه وشاركه.</p>
+  <button onclick="goToNext()">الدعاء التالي ←</button>
+  <p id="message">اللهم ارحم أبي واغفر له ❤️</p>
+</section>
+
+<main id="duaList"></main>
+
+<footer>
+  <p>اللهم ارحم أبي رحمةً تسع السماوات والأرض.</p>
+  <p>1961 — ذكرى ومحبة ودعاء</p>
+</footer>
+
+<script>
+const duas = [
+"اللهم في يوم الجمعة ارحم أبي رحمة واسعة، واغفر له، واجعل الجنة داره وقراره.",
+"اللهم نوّر قبر أبي، وآنس وحشته، ووسّع مدخله، واجعل قبره روضة من رياض الجنة.",
+"اللهم أسكن أبي الفردوس الأعلى، واجمعني به في جنات النعيم.",
+"اللهم اغفر لأبي وارحمه، وعافه واعف عنه، وأكرم نزله ووسّع مدخله.",
+"اللهم اجعل أبي في نعيم دائم لا ينقطع ولا يزول.",
+"اللهم بشّر أبي بالجنة والرضوان، وأكرم وفادته برحمتك.",
+"اللهم اجعل قبر أبي نوراً وراحة وسكينة.",
+"اللهم ارفع مقام أبي في عليين، واجعل كتابه في أعلى مراتب الجنة.",
+"اللهم اجعل أعمال أبي الصالحة نوراً له ورحمة.",
+"اللهم اجزه عنا خير الجزاء، واغفر له وارحمه.",
+"اللهم آنس أبي في وحدته، وآمنه يوم الفزع الأكبر.",
+"اللهم اجعل أبي من الذين لا خوف عليهم ولا هم يحزنون.",
+"اللهم اجعل الجنة موعد أبي ومستقره.",
+"اللهم اكتب لأبي الرحمة والمغفرة، واجعل دعاءنا له نوراً.",
+"اللهم ارزق أبي نعيم الجنة ولذة النظر إلى وجهك الكريم.",
+"اللهم اجعل أبي من أهل اليمين، وبشّره بالروح والريحان.",
+"اللهم اجعل ذكرى أبي الطيبة باقية، واجعل دعاءنا له وفاءً ومحبة.",
+"اللهم اغفر لأبي ولجميع موتى المسلمين وارحمهم برحمتك.",
+"اللهم اجعل أبي من أهل الجنة، وارزقه الأمن والطمأنينة.",
+"اللهم اجعل ما قدمه أبي من خير في ميزان حسناته.",
+"اللهم ارحم أبي كما أحببته في الدنيا، واجمعني به في جنتك.",
+"اللهم اجعل أبي في أعلى درجات الجنة، وارزقه رحمتك ورضوانك.",
+"اللهم اجعل قبر أبي واسعاً مضيئاً، وافتح له أبواب الجنة.",
+"اللهم ارحم أبي في كل وقت وحين، واغفر له يا أرحم الراحمين.",
+"اللهم اغفر لأبي ولأموات المسلمين، واجمعنا بهم في مستقر رحمتك.",
+"رَبِّ ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا.",
+"رَبَّنَا اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ.",
+"رَبَّنَا اغْفِرْ لَنَا وَلِإِخْوَانِنَا الَّذِينَ سَبَقُونَا بِالْإِيمَانِ."
+];
+
+let currentIndex = 0;
+
+const list = document.getElementById("duaList");
+
+duas.forEach((dua, index) => {
+  const card = document.createElement("section");
+  card.className = "dua-card";
+  card.id = "dua-" + index;
+
+  const title = document.createElement("h3");
+  title.textContent = index < 25
+    ? "🤲 الدعاء " + (index + 1)
+: "📖 دعاء من القرآن الكريم";
+
+  const text = document.createElement("p");
+  text.className = "dua-text";
+  text.textContent = dua;
+
+  const copy = document.createElement("button");
+  copy.textContent = "📋 نسخ الدعاء";
+  copy.onclick = () => copyDua(dua);
+
+  card.appendChild(title);
+  card.appendChild(text);
+  card.appendChild(copy);
+  list.appendChild(card);
+});
+
+function goToNext() {
+  currentIndex = (currentIndex + 1) % duas.length;
+  document.getElementById("dua-" + currentIndex)
+    .scrollIntoView({ behavior: "smooth", block: "center" });
+
+  document.getElementById("message").textContent =
+    "الدعاء " + (currentIndex + 1) + " من " + duas.length;
+}
+
+async function copyDua(dua) {
+  try {
+    await navigator.clipboard.writeText(dua);
+    document.getElementById("message").textContent =
+      "تم نسخ الدعاء بنجاح ❤️";
+  } catch (error) {
+    const area = document.createElement("textarea");
+    area.value = dua;
+    document.body.appendChild(area);
+    area.select();
+    document.execCommand("copy");
+    area.remove();
+
+    document.getElementById("message").textContent =
+      "تم نسخ الدعاء ❤️";
+  }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المسبحة الإلكترونية - 1961</title>
+<style>
+body {
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background: #101820;
+  color: white;
+}
+.card {
+  max-width: 500px;
+  margin: 25px auto;
+  padding: 25px;
+  background: #1b2835;
+  border: 1px solid #c9a646;
+  border-radius: 20px;
+}
+h1 { color: #e4c66b; }
+select, button {
+  font-size: 18px;
+  padding: 12px;
+  margin: 8px;
+  border-radius: 12px;
+}
+select { max-width: 100%; }
+#count {
+  font-size: 65px;
+  color: #e4c66b;
+  margin: 20px;
+}
+#bead {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 4px solid #e4c66b;
+  background: #26394a;
+  color: white;
+  font-size: 25px;
+  cursor: pointer;
+}
+.reset { background: #eee; color: #222; }
+a { color: #e4c66b; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>📿 المسبحة الإلكترونية</h1>
+  <p>رحم الله أبي وجعل القرآن نوراً له</p>
+
+  <label for="dhikr">اختار الذكر:</label><br>
+  <select id="dhikr">
+    <option>سبحان الله</option>
+    <option>الحمد لله</option>
+    <option>الله أكبر</option>
+    <option>أستغفر الله</option>
+    <option>لا إله إلا الله</option>
+    <option>اللهم صل على محمد وآل محمد</option>
+  </select>
+
+  <div id="count">0</div>
+  <button id="bead" onclick="increase()">سبّح 🤲</button>
+  <p>عدد التسبيحات</p>
+  <button class="reset" onclick="resetCount()">تصفير العدّاد</button>
+
+  <p id="message">الله يتقبل منكم صالح الأعمال</p>
+  <a href="index.html">العودة إلى صفحة الوالد</a>
+</div>
+
+<script>
+let count = Number(localStorage.getItem("tasbeehCount") || 0);
+let selectedDhikr = localStorage.getItem("tasbeehDhikr") || "سبحان الله";
+
+const countBox = document.getElementById("count");
+const dhikrBox = document.getElementById("dhikr");
+
+dhikrBox.value = selectedDhikr;
+countBox.textContent = count;
+
+function increase() {
+  count++;
+  localStorage.setItem("tasbeehCount", count);
+  localStorage.setItem("tasbeehDhikr", dhikrBox.value);
+  countBox.textContent = count;
+  document.getElementById("message").textContent =
+    "ذكر: " + dhikrBox.value + " — الله يتقبل منك";
+}
+
+function resetCount() {
+  if (confirm("تريد تصفّر العدّاد؟")) {
+    count = 0;
+    localStorage.setItem("tasbeehCount", count);
+    countBox.textContent = count;
+  }
+}
+
+dhikrBox.addEventListener("change", function() {
+  localStorage.setItem("tasbeehDhikr", dhikrBox.value);
+  document.getElementById("message").textContent =
+    "تم اختيار: " + dhikrBox.value;
+});
+</script>
+</body>
+</html>
